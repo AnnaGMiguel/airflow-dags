@@ -27,7 +27,7 @@ def create_dir():
     os.mkdir("test_dir") 
 
 
-dag = DAG("new directory", default_args=default_args, schedule_interval=timedelta(1))
+dag = DAG("new_directory", default_args=default_args, schedule_interval=timedelta(1))
 
 # t1, t2 and t3 are examples of tasks created by instantiating operators
 t1 = PythonOperator(task_id="print_date", python_callable=create_dir, dag=dag)
