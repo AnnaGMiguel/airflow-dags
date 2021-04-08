@@ -24,7 +24,8 @@ default_args = {
     # 'end_date': datetime(2016, 1, 1),
 }
 def create_dir():
-   return os.mkdir("test_dir") 
+   os.makedirs("test_dir")
+   return print("created") 
 
 
 dag = DAG("new_directory", default_args=default_args, schedule_interval=timedelta(1))
