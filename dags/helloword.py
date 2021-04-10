@@ -13,6 +13,6 @@ def my_func(**kwargs):
  
 with DAG('python_dag', description='Python DAG', schedule_interval=timedelta(1), start_date=datetime(2021, 4, 9), catchup=False) as dag:
 	dummy_task 	= DummyOperator(task_id='dummy_task', retries=3)
-	python_task	= PythonOperator(task_id='python_task', python_callable=my_func, op_kwargs={'param_1': 'Anna', 'param_2': 'Goncalves', 'param_3': 'Miguel'})
+	python_task	= PythonOperator(task_id='python_task', python_callable=my_func, op_kwargs={'param_1': 'One', 'param_2': 'Two', 'param_3': 'Three'})
  
 	dummy_task >> python_task
