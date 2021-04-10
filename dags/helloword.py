@@ -7,11 +7,12 @@ from airflow.operators.dummy_operator import DummyOperator
 
 from datetime import datetime, timedelta
 
-def my_func():
+def my_func(**kwargs):
     print('Hello from airflow')
+    return kwargs['param_1']
  
 with DAG('python_dag', description='Python DAG', schedule_interval=timedelta(1), start_date=datetime(2021, 4, 9), catchup=False) as dag:
 	dummy_task 	= DummyOperator(task_id='dummy_task', retries=3)
-	python_task	= PythonOperator(task_id='python_task', python_callable=my_func)
+	python_task	= PythonOperator(task_id='python_task', python_callable=my_func, op_kwargs={'param_1': 'Anna', 'param_2': 'Goncalves', 'param_3': 'Miguel'})
  
 	dummy_task >> python_task
