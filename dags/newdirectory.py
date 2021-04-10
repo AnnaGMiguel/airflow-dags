@@ -30,7 +30,7 @@ t2 = BashOperator(task_id="sleep", bash_command="sleep 5", retries=3, dag=dag)
 templated_command = """
     {% for i in range(5) %}
         echo "{{ ds }}"
-        echo "{{ macros.ds_add(ds, 7)}}"
+        echo "{{ macros.ds_add(ds, 2)}}"
         echo "{{ params.my_param }}"
     {% endfor %}
 """
