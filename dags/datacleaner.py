@@ -3,7 +3,7 @@ def data_cleaner():
     import pandas as pd
     import re
 
-    df = pd.read_csv("~/store_files/raw_store_transactions.csv")
+    df = pd.read_csv("~/raw_store_transactions.csv")
 
     def clean_store_location(st_loc):
         return re.sub(r'[^\w\s]', '', st_loc).strip()
