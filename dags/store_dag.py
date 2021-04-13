@@ -11,5 +11,5 @@ default_args = {
 
 dag = DAG('store_dag', default_args = default_args, schedule_interval = '@daily', catchup = False)
 
-t1 = BashOperator(task_id = 'check_file_exists', bash_command = 'shasum ~ /store_files/raw_store_transaction.csv', retries = 2,
+t1 = BashOperator(task_id = 'check_file_exists', bash_command = 'shasum ~ /store_files/raw_store_transactions.csv', retries = 2,
  retry_delay = timedelta(seconds=15), dag = dag)
