@@ -23,4 +23,4 @@ def data_cleaner():
     for to_clean in ['MRP', 'CP', 'DISCOUNT', 'SP']:
         df[to_clean] = df[to_clean].map(lambda x: remove_dollar(x))
 
-    df.to_csv('~/store_files_airflow/clean_store_transactions.csv', index=False)
+    df.to_csv('~/clean_store_transactions.csv', index=False)
