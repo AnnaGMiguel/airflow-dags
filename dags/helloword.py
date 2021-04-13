@@ -8,7 +8,7 @@ from airflow.operators.dummy_operator import DummyOperator
 from datetime import datetime, timedelta
 
 def my_func(**kwargs):
-    print('Hello from airflow')
+    print('Hello from airflow terminal')
     return kwargs['param_1']
  
 with DAG('python_dag', description='Python DAG', schedule_interval=timedelta(1), start_date=datetime(2021, 4, 9), catchup=False) as dag:
