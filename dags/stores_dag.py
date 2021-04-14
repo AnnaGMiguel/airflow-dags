@@ -26,7 +26,7 @@ default_args = {
 dag = DAG("stores_dag", default_args=default_args, schedule_interval=timedelta(1))
 
 
-t1 = BashOperator(task_id='check_file_exists', bash_command='shasum $AIRFLOW_HOME/dags/repo/store_files/raw_store_transactions.csv', retries=2, dag=dag)
+t1 = BashOperator(task_id='check_file_exists', bash_command='cat $AIRFLOW_HOME/dags/repo/store_files/raw_store_transactions.csv', retries=2, dag=dag)
 
 t2 = PythonOperator(task_id='clean_raw_csv', python_callable=data_cleaner, dag=dag)
 
