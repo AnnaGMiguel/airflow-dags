@@ -3,7 +3,7 @@ def data_cleaner():
     import pandas as pd
     import re
 
-    df = pd.read_csv("~/raw_store_transactions.csv")
+    df = pd.read_csv("$AIRFLOW_HOME/dags/repo/store_files/raw_store_transactions.csv")
 
     def clean_store_location(st_loc):
         return re.sub(r'[^\w\s]', '', st_loc).strip()
@@ -23,4 +23,4 @@ def data_cleaner():
     for to_clean in ['MRP', 'CP', 'DISCOUNT', 'SP']:
         df[to_clean] = df[to_clean].map(lambda x: remove_dollar(x))
 
-    df.to_csv('~/clean_store_transactions.csv', index=False)
+    df.to_csv('$AIRFLOW_HOME/dags/repo/store_files/clean_store_transactions.csv', index=False)
