@@ -24,7 +24,7 @@ default_args = {
 dag = DAG("new_directory", default_args=default_args, schedule_interval=timedelta(1))
 
 # t1, t2 and t3 are examples of tasks created by instantiating operators
-t1 = DummyOperator(task_id='dummy_task', retries=3)
+t1 = DummyOperator(task_id='dummy_task', retries=3, dag=dag)
 #BashOperator(task_id="new_dir", bash_command="mkdir ~/test_direc", dag=dag)
 #test if th
 #t1 = BashOperator(task_id='check_file_exists', bash_command='cat $AIRFLOW_HOME/dags/repo/store_files/raw_store_transactions.csv', retries=2,retry_delay=timedelta(seconds=15), dag=dag)
