@@ -4,6 +4,7 @@ from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.bash_operator import BashOperator
 
 from datetime import datetime, timedelta
+from datacleaner import data_cleaner
 
 def my_func():
     print('test connection')
