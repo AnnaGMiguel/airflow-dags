@@ -21,7 +21,7 @@ def data_cleaner():
 	
 	def clean_product_id(pd_id):
        	 matches = re.findall(r'\d+', pd_id)
-        	if matches:
+         if matches:
           	  return matches[0]
        	 return pd_id
 		
