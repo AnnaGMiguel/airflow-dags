@@ -33,7 +33,7 @@ def data_cleaner():
 	for to_clean in ['MRP', 'CP', 'DISCOUNT', 'SP']:
         	df[to_clean] = df[to_clean].map(lambda x: remove_dollar(x))
 	
-	df.to_csv(airflow_home+'/tmp/clean_store_transactions.csv', index=False)
+	df.to_csv('/tmp/clean_store_transactions.csv', index=False)
 
  
 with DAG('tests_dag', description='Python DAG', schedule_interval=timedelta(1), start_date=datetime(2021, 4, 17), catchup=False) as dag:
