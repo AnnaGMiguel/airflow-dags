@@ -14,7 +14,7 @@ def data_cleaner():
     import pandas as pd
     import re
 
-    df = pd.read_csv("$AIRFLOW_HOME/dags/repo/store_files/raw_store_transactions.csv")
+    df = pd.read_csv('$AIRFLOW_HOME/dags/repo/store_files/raw_store_transactions.csv')
 
     def clean_store_location(st_loc):
         return re.sub(r'[^\w\s]', '', st_loc).strip()
