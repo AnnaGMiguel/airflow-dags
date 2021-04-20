@@ -4,6 +4,7 @@ from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.bash_operator import BashOperator
 import pandas as pd
 import re
+import os
 from datetime import datetime, timedelta
 #from datacleaner import data_cleaner
 
@@ -12,29 +13,27 @@ def my_func():
     
 def data_cleaner():
 
-
-
-    df = pd.read_csv('$AIRFLOW_HOME/dags/repo/store_files/raw_store_transactions.csv')
-
-    def clean_store_location(st_loc):
+	airflow_home = os.environ["AIRFLOW_HOME"]
+	df = pd.read_csv(airflow_home+'/dags/repo/store_files/raw_store_transactions.csv')
+	
+	def clean_store_location(st_loc):
         return re.sub(r'[^\w\s]', '', st_loc).strip()
-
-    def clean_product_id(pd_id):
+	
+	def clean_product_id(pd_id):
         matches = re.findall(r'\d+', pd_id)
         if matches:
             return matches[0]
         return pd_id
-
-    def remove_dollar(amount):
+		
+	def remove_dollar(amount):
         return float(amount.replace('$', ''))
-
-    df['STORE_LOCATION'] = df['STORE_LOCATION'].map(lambda x: clean_store_location(x))
-    df['PRODUCT_ID'] = df['PRODUCT_ID'].map(lambda x: clean_product_id(x))
-
-    for to_clean in ['MRP', 'CP', 'DISCOUNT', 'SP']:
+		
+	df['STORE_LOCATION'] = df['STORE_LOCATION'].map(lambda x: clean_store_location(x))
+	df['PRODUCT_ID'] = df['PRODUCT_ID'].map(lambda x: clean_product_id(x))
+	for to_clean in ['MRP', 'CP', 'DISCOUNT', 'SP']:
         df[to_clean] = df[to_clean].map(lambda x: remove_dollar(x))
-
-    df.to_csv('$AIRFLOW_HOME/dags/repo/store_files/clean_store_transactions.csv', index=False)
+	
+	df.to_csv(airflow_home+'/dags/repo/store_files/clean_store_transactions.csv', index=False)
 
  
 with DAG('tests_dag', description='Python DAG', schedule_interval=timedelta(1), start_date=datetime(2021, 4, 17), catchup=False) as dag:
