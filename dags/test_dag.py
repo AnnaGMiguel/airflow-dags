@@ -2,7 +2,8 @@ from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.bash_operator import BashOperator
-
+import pandas as pd
+import re
 from datetime import datetime, timedelta
 #from datacleaner import data_cleaner
 
@@ -11,8 +12,7 @@ def my_func():
     
 def data_cleaner():
 
-    import pandas as pd
-    import re
+
 
     df = pd.read_csv('$AIRFLOW_HOME/dags/repo/store_files/raw_store_transactions.csv')
 
