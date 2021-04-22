@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 #from datacleaner import data_cleaner
 
 def my_func():
-    print('test connection')
+    print('new check for conection')
     
 def data_cleaner():
 
