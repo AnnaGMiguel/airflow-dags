@@ -43,6 +43,6 @@ with DAG('tests_dag', description='Python DAG', schedule_interval=timedelta(1), 
 	python_task	= PythonOperator(task_id='python_task', python_callable=my_func)
 	t1=BashOperator(task_id='check_file_exists', bash_command='cat $AIRFLOW_HOME/dags/repo/store_files/raw_store_transactions.csv', retries=2, retry_delay=timedelta(seconds=15))
 	t2 = PythonOperator(task_id='clean_raw_csv', python_callable=data_cleaner)
-	t3=BashOperator(task_id='check_new_file', bash_command='cat /tmp/store_files/clean_store_transactions.csv', retries=2, retry_delay=timedelta(seconds=15))
-	t4 = PostgresOperator(task_id='create_postgres_table',postgres_conn_id="postgres_conn", sql="create_table.sql")
-	dummy_task >> python_task >> t1 >> t2 >> t3 >> t4
+	#t3=BashOperator(task_id='check_new_file', bash_command='cat /tmp/store_files/clean_store_transactions.csv', retries=2, retry_delay=timedelta(seconds=15))
+	t3 = PostgresOperator(task_id='create_postgres_table',postgres_conn_id="postgres_conn", sql="create_table.sql")
+	dummy_task >> python_task >> t1 >> t2 >> t3
