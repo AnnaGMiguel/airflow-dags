@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 #from datacleaner import data_cleaner
 
 def my_func():
-    print('new check for conection')
+    print('check for conection')
     
 def data_cleaner():
 
