@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 #from datacleaner import data_cleaner
 
 def my_func():
-    print('check for conection postgres localhost')
+    print('check for conection postgres localhost airflow')
     
 def data_cleaner():
 
