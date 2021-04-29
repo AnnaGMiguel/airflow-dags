@@ -45,5 +45,5 @@ with DAG('tests_dag', description='Python DAG', schedule_interval=timedelta(1), 
 	t2 = PythonOperator(task_id='clean_raw_csv', python_callable=data_cleaner)
 	check_new_file =BashOperator(task_id='check_new_file', bash_command='cat /tmp/clean_store_transactions.csv', retries=2, retry_delay=timedelta(seconds=15))
 	t3 = PostgresOperator(task_id='create_postgres_table',postgres_conn_id="postgres_default", sql="create_table.sql")
-	t4 = PostgresOperator(task_id='insert_into_table',postgres_conn_id="postgres_default", sql="insert_into_table.sql")
+	t4 = PostgresOperator(task_id='insert_into_table',postgres_conn_id="postgres_default", sql="COPY clean_store_transactions(STORE_ID,STORE_LOCATION,PRODUCT_CATEGORY,PRODUCT_ID,MRP,CP,DISCOUNT,SP,Date) FROM '/tmp/clean_store_transactions.csv' DELIMITER ',' CSV HEADER;")
 	dummy_task >> python_task >> t1 >> t2 >> check_new_file >> t3 >> t4
