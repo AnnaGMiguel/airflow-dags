@@ -46,4 +46,5 @@ with DAG('tests_dag', description='Python DAG', schedule_interval=timedelta(1), 
 	check_new_file =BashOperator(task_id='check_new_file', bash_command='cat /tmp/clean_store_transactions.csv', retries=2, retry_delay=timedelta(seconds=15))
 	t3 = PostgresOperator(task_id='create_postgres_table',postgres_conn_id="postgres_default", sql="create_table.sql")
 	t4 = PostgresOperator(task_id='insert_into_table',postgres_conn_id="postgres_default", sql="insert_into_table.sql")
-	dummy_task >> python_task >> t1 >> t2 >> check_new_file >> t3 >> t4
+	t5 = PostgresOperator(task_id='select_table',postgres_conn_id="postgres_default", sql="select_table.sql")
+	dummy_task >> python_task >> t1 >> t2 >> check_new_file >> t3 >> t5 >>t4

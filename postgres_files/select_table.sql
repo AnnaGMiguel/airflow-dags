@@ -1,0 +1,1 @@
+SELECT * FROM airflow.clean_store_transactions;
