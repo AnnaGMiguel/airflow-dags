@@ -1,1 +1,1 @@
-LOAD DATA INFILE '/tmp/clean_store_transactions.csv' INTO TABLE clean_store_transactions FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' IGNORE 1 ROWS;
+COPY clean_store_transactions(STORE_ID,STORE_LOCATION,PRODUCT_CATEGORY,PRODUCT_ID,MRP,CP,DISCOUNT,SP,Date) FROM '/tmp/clean_store_transactions.csv' DELIMITER ',' CSV HEADER;
