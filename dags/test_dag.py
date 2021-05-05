@@ -36,7 +36,7 @@ def data_cleaner():
         	df[to_clean] = df[to_clean].map(lambda x: remove_dollar(x))
 	
 	df.to_csv('/tmp/clean_store_transactions.csv', index=False)
-
+ 
  
 with DAG('tests_dag', description='Python DAG', schedule_interval=timedelta(1), start_date=datetime(2021, 4, 17), template_searchpath=(os.environ["AIRFLOW_HOME"]+'/dags/repo/postgres_files'), catchup=False) as dag:
 	dummy_task 	= DummyOperator(task_id='dummy_task', retries=3)
@@ -47,4 +47,5 @@ with DAG('tests_dag', description='Python DAG', schedule_interval=timedelta(1), 
 	t3 = PostgresOperator(task_id='create_postgres_table',postgres_conn_id="postgres_default", sql="create_table.sql")
 	t4 = PostgresOperator(task_id='insert_into_table',postgres_conn_id="postgres_default", sql="INSERT INTO clean_store_transactions(STORE_ID,STORE_LOCATION,PRODUCT_CATEGORY,PRODUCT_ID,MRP,CP,DISCOUNT,SP,Date) VALUES ('yr7220','NewYork','Electronics',12254943,31,20.77,1.86,29.14,'11-26-2019');")
 	t5 = PostgresOperator(task_id='select_table',postgres_conn_id="postgres_default", sql="select_table.sql")
-	dummy_task >> python_task >> t1 >> t2 >> check_new_file >> t3 >> t5 >>t4
+	t6 = PostgresOperator(task_id='select_data',postgres_conn_id="postgres_default", sql="select_data.sql")
+	dummy_task >> python_task >> t1 >> t2 >> check_new_file >> t3 >> t5 >>t4 >>t6
