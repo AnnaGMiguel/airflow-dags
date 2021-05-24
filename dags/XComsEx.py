@@ -37,7 +37,7 @@ t2 = PythonOperator(
     provide_context=True,
     dag=DAG)
 
-t3 = BashOperator(task_id='check_file', bash_command='cat $AIRFLOW_HOME/dags/repo/store_files/raw_store_transactions.csv', retries=2, retry_delay=timedelta(seconds=15))
+t3 = BashOperator(task_id='check_file', bash_command='cat $AIRFLOW_HOME/dags/repo/store_files/raw_store_transactions.csv', retries=2, retry_delay=timedelta(seconds=15),dag=DAG)
 
 
 t1 >> t2 >> t3
