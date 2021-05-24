@@ -1,6 +1,7 @@
 import airflow
 from datetime import datetime, timedelta
 from airflow.models import DAG
+from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
 
 args = {
@@ -21,7 +22,7 @@ def push_function(**kwargs):
 
 def pull_function(**kwargs):
     ti = kwargs['ti']
-    pulled_message = ti.xcom_pull(key='message', task_ids='new_push_task')
+    pulled_message = ti.xcom_pull(key='message', task_ids='push_task')
     print("Pulled Message: '%s'" % pulled_message)
 
 t1 = PythonOperator(
@@ -36,4 +37,7 @@ t2 = PythonOperator(
     provide_context=True,
     dag=DAG)
 
-t1 >> t2
+t3 = BashOperator(task_id='check_file', bash_command='cat $AIRFLOW_HOME/dags/repo/store_files/raw_store_transactions.csv', retries=2, retry_delay=timedelta(seconds=15))
+
+
+t1 >> t2 >> t3
