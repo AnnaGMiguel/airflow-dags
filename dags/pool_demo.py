@@ -5,7 +5,7 @@ from airflow.operators.bash_operator import BashOperator
 
 default_args = {
     "owner": "airflow",
-    "start_date": datetime(2021,26,5),
+    "start_date": airflow.utils.dates.days_ago(1),
 }
 
 with DAG("pools", default_args=default_args,schedule_interval=timedelta(1)) as dag:
